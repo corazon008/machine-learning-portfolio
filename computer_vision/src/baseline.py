@@ -1,30 +1,26 @@
 from torch import nn, optim
 from utils.BaseCNN import BaseCNN
+from torch import nn
+import torch.nn.functional as F
 
 # Baseline model for CNN
 class BaselineModel(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(
+            self,
+            input_dim=32*32*3,
+            hidden_dim=98,
+            output_dim=10,
+            dropout=0.5,
+    ):
         super(BaselineModel, self).__init__()
-        self.loss_fn = nn.CrossEntropyLoss()
-        self.net = nn.Sequential(
-            nn.Conv2d(3, 32, kernel_size=3, padding=1), # assuming 3-channel input images (e.g., RGB)
-            nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2),  # 32x32 -> 16x16
-            nn.Flatten(),
-            nn.Linear(64 * 16 * 16, 512), # assuming input images are 16x16
-            nn.ReLU(),
-            nn.Linear(512, num_classes)  # logits
-        )
+        self.dropout = nn.Dropout(dropout)
 
-    def forward(self, x):
-        return self.net(x)
+        self.hidden = nn.Linear(input_dim, hidden_dim)
+        self.output = nn.Linear(hidden_dim, output_dim)
 
-    def compute_loss(self, preds, targets):
-        return self.loss_fn(preds, targets)
-
-    def compute_metrics(self, preds, targets):
-        predicted = preds.argmax(1)
-        accuracy = (predicted == targets).float().mean().item()
-        return {"accuracy": accuracy}
+    def forward(self, X, **kwargs):
+        X = X.reshape(-1, self.hidden.in_features)
+        X = F.relu(self.hidden(X))
+        X = self.dropout(X)
+        X = F.softmax(self.output(X), dim=-1)
+        return X

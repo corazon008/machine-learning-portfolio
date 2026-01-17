@@ -31,6 +31,16 @@ Each project follows a consistent structure:
 
 ---
 
+## Getting Started
+
+To set up the environment and install dependencies, run:
+```commandline
+uv sync
+uv pip install -e .
+```
+
+---
+
 ## Domains Covered
 
 ### Classical Machine Learning

@@ -1,5 +1,3 @@
-from torch import nn, optim
-from utils.BaseCNN import BaseCNN
 from torch import nn
 import torch.nn.functional as F
 

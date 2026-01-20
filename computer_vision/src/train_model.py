@@ -12,6 +12,7 @@ from pathlib import Path
 
 from utils.helper import load_config, Config
 from computer_vision.src.BaseCNN import BaseCNN
+from transforms import get_transform
 
 
 DATASET_PATH = Path("../data/Emotions/")
@@ -23,11 +24,7 @@ if __name__ == '__main__':
 
 
     # Load dataset
-    transform = transforms.Compose([
-        transforms.Resize((config.img_size, config.img_size)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=config.normalization["mean"], std=config.normalization["std"])
-    ])
+    transform = get_transform(config.img_size, config.normalization["mean"], config.normalization["std"])
 
     ds = ImageFolder(root=DATASET_PATH, transform=transform)
 
@@ -55,8 +52,7 @@ if __name__ == '__main__':
         callbacks=[EarlyStopping(patience=5)],
 
         module__num_classes=5,
-        module__img_height=config.img_size,
-        module__img_width=config.img_size,
+        module__img_size=config.img_size,
         module__nb_conv_layers=config.nb_conv_layers,
         module__nb_layers=config.nb_layers,
         module__net_width=config.net_width,

@@ -1,9 +1,8 @@
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
-import torch
 import io
 
-from transforms import get_train_transform
+from computer_vision.src.transforms import get_transform
 from load_model import create_model, device, pred_to_name
 from utils.helper import load_config, Config
 from pathlib import Path
@@ -19,7 +18,7 @@ async def predict(file: UploadFile = File(...)):
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
 
     # Preprocessing
-    transform = get_train_transform(config.img_size, config.normalization["mean"], config.normalization["std"])
+    transform = get_transform(config.img_size, config.normalization["mean"], config.normalization["std"])
     x = transform(image).unsqueeze(0).to(device)
 
     # Prediction

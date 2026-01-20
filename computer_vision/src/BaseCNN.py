@@ -8,8 +8,7 @@ from utils.helper import MyDropout
 
 class BaseCNN(nn.Module):
     def __init__(self, num_classes: int = 10,
-                 img_height: int = 32,
-                 img_width: int = 32,
+                 img_size: int = 32,
                  nb_conv_layers: int = 3,
                  nb_layers: int = 2,
                  net_width: int = 256,
@@ -36,17 +35,16 @@ class BaseCNN(nn.Module):
 
         # Calculate the size of the feature map after convolutional layers
         # Ensure we don't divide down to zero
-        conv_output_height = img_height // (2 ** nb_conv_layers)
-        conv_output_width = img_width // (2 ** nb_conv_layers)
+        conv_output_size = img_size // (2 ** nb_conv_layers)
 
-        if conv_output_height < 1 or conv_output_width < 1:
+        if conv_output_size < 1:
             raise ValueError(
                 f"Too many pooling operations for given image size: "
-                f"img_height={img_height}, img_width={img_width}, nb_conv_layers={nb_conv_layers}. "
+                f"img_size={img_size}, nb_conv_layers={nb_conv_layers}. "
                 "Reduce `nb_conv_layers` or increase image size."
             )
 
-        nb_features = in_channels * conv_output_height * conv_output_width
+        nb_features = in_channels * img_size * img_size
 
         # Fully connected layers
         self.net.add_module("input_layer", nn.Linear(nb_features, net_width))

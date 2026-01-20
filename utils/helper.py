@@ -2,13 +2,13 @@ from typing import List, Optional, Dict
 from pathlib import Path
 from dataclasses import dataclass
 import torch.optim as optim
+import yaml
 
 
 class MyDropout:
     """
     A helper class to manage dropout rates for each layer.
     """
-
     def __init__(self, dropout_rates: Optional[List[float]] = None):
         # avoid mutable default argument
         self.dropout_rates = dropout_rates if dropout_rates is not None else [0.0]
@@ -44,7 +44,6 @@ class Config:
 
 
 def load_config(config_path: Path) -> Config:
-    import yaml
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     # Map optimizer string to actual optimizer class

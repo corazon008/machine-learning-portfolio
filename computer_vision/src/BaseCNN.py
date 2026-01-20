@@ -9,6 +9,7 @@ from utils.helper import MyDropout
 class BaseCNN(nn.Module):
     def __init__(self, num_classes: int = 10,
                  img_size: int = 32,
+                 nb_img_channels: int = 3, # Assuming RGB images
                  nb_conv_layers: int = 3,
                  nb_layers: int = 2,
                  net_width: int = 256,
@@ -20,7 +21,7 @@ class BaseCNN(nn.Module):
         self.net = nn.Sequential()
 
         # Convolutional layers
-        in_channels = 3  # Assuming RGB images
+        in_channels = nb_img_channels
         # Cap maximum number of channels to avoid excessive memory use
         max_channels = 512
         for i in range(nb_conv_layers):
@@ -44,7 +45,7 @@ class BaseCNN(nn.Module):
                 "Reduce `nb_conv_layers` or increase image size."
             )
 
-        nb_features = in_channels * img_size * img_size
+        nb_features = in_channels * conv_output_size * conv_output_size
 
         # Fully connected layers
         self.net.add_module("input_layer", nn.Linear(nb_features, net_width))

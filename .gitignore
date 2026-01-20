@@ -227,3 +227,7 @@ __marimo__/
 
 # Data files
 data/
+*.pkl
+*.npy
+mlflow.db
+mlartifacts

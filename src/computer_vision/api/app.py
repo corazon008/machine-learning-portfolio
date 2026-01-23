@@ -3,13 +3,13 @@ from PIL import Image
 import io
 
 from computer_vision.data.transforms import get_transform
-from load_model import create_model, device, pred_to_name
+from computer_vision.api.load_model import create_model, device, pred_to_name
 from computer_vision.utils.helper import load_config, Config
 from pathlib import Path
 
 app = FastAPI()
 
-config: Config = load_config(Path("config.yaml"))
+config: Config = load_config(Path(__file__).parent / Path("config.yaml"))
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):

@@ -1,5 +1,6 @@
-from torchvision import transforms
 import torch
+from torchvision import transforms
+
 
 def compute_normalization(train_ds) -> tuple[list, list]:
     """Compute the mean and std of a dataset for normalization."""
@@ -16,10 +17,10 @@ def compute_normalization(train_ds) -> tuple[list, list]:
 
 def get_transform(img_size: int, mean: list, std: list, gray_scale: bool = False) -> transforms.Compose:
     t = transforms.Compose([
-        transforms.Resize((img_size, img_size)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=mean, std=std),
-    ])
+                               transforms.Resize((img_size, img_size)),
+                               transforms.ToTensor(),
+                               transforms.Normalize(mean=mean, std=std),
+                           ])
     if gray_scale:
         t.transforms.insert(len(t.transforms), transforms.Grayscale(num_output_channels=1))
     return t

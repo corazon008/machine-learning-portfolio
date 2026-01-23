@@ -7,7 +7,8 @@ from utils.helper import MyDropout
 
 
 class BaseCNN(nn.Module):
-    def __init__(self, num_classes: int = 10,
+    def __init__(self,
+                 num_classes: int = 10,
                  img_size: int = 32,
                  nb_img_channels: int = 3,  # Assuming RGB images
                  nb_conv_layers: int = 3,

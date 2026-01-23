@@ -44,8 +44,13 @@ def set_mlflow_tracking_uri():
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 
-def log_run(model: BaseEstimator | GridSearchCV, X_train: Dataset | SliceDataset, y_train,
-            X_test: Dataset | SliceDataset, y_test, params=None, run_name=None) -> NeuralNet:
+def log_run(model: BaseEstimator | GridSearchCV,
+            X_train: Dataset | SliceDataset,
+            y_train,
+            X_test: Dataset | SliceDataset,
+            y_test,
+            params=None,
+            run_name=None) -> NeuralNet:
     """
     Log a training run to MLflow.
     :param model:

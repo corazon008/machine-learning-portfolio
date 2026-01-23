@@ -1,15 +1,10 @@
-from torch import nn
 import torch.nn.functional as F
+from torch import nn
+
 
 # Baseline model for CNN
 class BaselineModel(nn.Module):
-    def __init__(
-            self,
-            input_dim=32*32*3,
-            hidden_dim=98,
-            output_dim=10,
-            dropout=0.5,
-    ):
+    def __init__(self, input_dim=32 * 32 * 3, hidden_dim=98, output_dim=10, dropout=0.5, ):
         super(BaselineModel, self).__init__()
         self.dropout = nn.Dropout(dropout)
 

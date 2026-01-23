@@ -1,6 +1,7 @@
 import torch
 
-def compute_normalization(train_ds)-> tuple[list, list]:
+
+def compute_normalization(train_ds) -> tuple[list, list]:
     """Compute the mean and std of a dataset for normalization."""
     mean = torch.zeros(3)
     std = torch.zeros(3)

@@ -1,7 +1,7 @@
-import torch
-from torch import nn
-import torch.nn.functional as F
 from typing import List, Optional
+
+import torch.nn.functional as F
+from torch import nn
 
 from utils.helper import MyDropout
 
@@ -9,7 +9,7 @@ from utils.helper import MyDropout
 class BaseCNN(nn.Module):
     def __init__(self, num_classes: int = 10,
                  img_size: int = 32,
-                 nb_img_channels: int = 3, # Assuming RGB images
+                 nb_img_channels: int = 3,  # Assuming RGB images
                  nb_conv_layers: int = 3,
                  nb_layers: int = 2,
                  net_width: int = 256,
@@ -39,11 +39,9 @@ class BaseCNN(nn.Module):
         conv_output_size = img_size // (2 ** nb_conv_layers)
 
         if conv_output_size < 1:
-            raise ValueError(
-                f"Too many pooling operations for given image size: "
-                f"img_size={img_size}, nb_conv_layers={nb_conv_layers}. "
-                "Reduce `nb_conv_layers` or increase image size."
-            )
+            raise ValueError(f"Too many pooling operations for given image size: "
+                             f"img_size={img_size}, nb_conv_layers={nb_conv_layers}. "
+                             "Reduce `nb_conv_layers` or increase image size.")
 
         nb_features = in_channels * conv_output_size * conv_output_size
 

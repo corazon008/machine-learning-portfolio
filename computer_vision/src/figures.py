@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import torch
 
-def plot_label_distribution(ds, figures_name):
 
+def plot_label_distribution(ds, figures_name):
     if figures_name.exists():
         img = plt.imread(figures_name)
         plt.imshow(img)

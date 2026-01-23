@@ -36,7 +36,6 @@ Each project follows a consistent structure:
 To set up the environment and install dependencies, run:
 ```commandline
 uv sync
-uv pip install -e .
 ```
 
 ---

@@ -8,9 +8,9 @@ from skorch.callbacks import EarlyStopping
 from torch.utils.data import Subset
 from torchvision.datasets import ImageFolder
 
-from computer_vision.src.BaseCNN import BaseCNN
-from transforms import get_transform
-from utils.helper import load_config, Config
+from computer_vision.models.BaseCNN import BaseCNN
+from computer_vision.data.transforms import get_transform
+from computer_vision.utils.helper import load_config, Config
 
 DATASET_PATH = Path("../data/Emotions/")
 TEST_SIZE = 0.2

@@ -4,8 +4,8 @@ import numpy as np
 import torch
 from skorch import NeuralNetClassifier
 
-from computer_vision.src.BaseCNN import BaseCNN
-from utils.helper import Config
+from computer_vision.models.BaseCNN import BaseCNN
+from computer_vision.utils.helper import Config
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

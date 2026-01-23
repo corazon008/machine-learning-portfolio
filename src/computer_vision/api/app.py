@@ -2,9 +2,9 @@ from fastapi import FastAPI, File, UploadFile
 from PIL import Image
 import io
 
-from computer_vision.src.transforms import get_transform
+from computer_vision.data.transforms import get_transform
 from load_model import create_model, device, pred_to_name
-from utils.helper import load_config, Config
+from computer_vision.utils.helper import load_config, Config
 from pathlib import Path
 
 app = FastAPI()

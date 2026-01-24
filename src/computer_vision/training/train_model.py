@@ -67,12 +67,12 @@ if __name__ == '__main__':
     print(f"Test Accuracy: {test_acc * 100:.2f}%")
 
     # Save the model
-    MODEL_PATH = Path(API_FOLDER / Path("model/emotion_cnn_model.pkl"))
+    MODEL_PATH = API_FOLDER / Path("model/emotion_cnn_model.pkl")
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     cnn.save_params(f_params=MODEL_PATH)
 
-    CLASS_NAME_PATH = Path(API_FOLDER / Path("model/emotion_class_names.npy"))
-    CLASS_NAME_PATH.mkdir(parents=True, exist_ok=True)
+    CLASS_NAME_PATH = API_FOLDER / Path("model/emotion_class_names.npy")
+    CLASS_NAME_PATH.parent.mkdir(parents=True, exist_ok=True)
     class_to_idx = ds.class_to_idx
     idx_to_class = {v: k for k, v in class_to_idx.items()}
     np.save(CLASS_NAME_PATH, idx_to_class)

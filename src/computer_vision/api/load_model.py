@@ -21,11 +21,11 @@ def create_model(config: Config) -> NeuralNetClassifier:
                                 module__dropout_rates=config.dropout_rates, )
 
     model.initialize()  # This is important!
-    model.load_params(f_params=Path("models/emotion_cnn_model.pkl"))
+    model.load_params(f_params=Path(__file__).parent / "model/emotion_cnn_model.pkl")
     return model
 
 
 def pred_to_name(pred) -> str:
-    path = Path("models/emotion_class_names.npy")
+    path = Path(__file__).parent / "model/emotion_class_names.npy"
     idx_to_class = np.load(path, allow_pickle=True).item()
     return idx_to_class[pred]

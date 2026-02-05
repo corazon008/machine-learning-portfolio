@@ -15,12 +15,16 @@ def compute_normalization(train_ds) -> tuple[list, list]:
     return mean.tolist(), std.tolist()
 
 
-def get_transform(img_size: int, mean: list, std: list, gray_scale: bool = False) -> transforms.Compose:
-    t = transforms.Compose([
-                               transforms.Resize((img_size, img_size)),
-                               transforms.ToTensor(),
-                               transforms.Normalize(mean=mean, std=std),
-                           ])
+def get_transform(img_size: int, mean: list, std: list, augments:bool = False, gray_scale: bool = False) -> transforms.Compose:
+    t = [
+        transforms.Resize((img_size, img_size)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=mean, std=std),
+    ]
+
     if gray_scale:
-        t.transforms.insert(len(t.transforms), transforms.Grayscale(num_output_channels=1))
-    return t
+        t.append(transforms.Grayscale(num_output_channels=1))
+    if augments:
+        t.append(transforms.RandomHorizontalFlip())
+        t.append(transforms.RandomRotation(10))
+    return transforms.Compose(t)

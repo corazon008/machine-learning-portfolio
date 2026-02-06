@@ -21,6 +21,12 @@ class Game:
 
         return True
 
+    def get_state(self) -> np.ndarray:
+        return self._state.copy()
+
+    def get_valid_actions(self) -> list:
+        return [(i, j) for i in range(3) for j in range(3) if self._state[i][j] == 0]
+
     def check_win(self) -> bool:
         # Check for rows
         for row in self._state:

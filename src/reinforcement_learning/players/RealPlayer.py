@@ -1,4 +1,4 @@
-from reinforcement_learning.Players.Player import Player
+from reinforcement_learning.players.Player import Player
 
 
 class RealPlayer(Player):
@@ -6,7 +6,7 @@ class RealPlayer(Player):
         super().__init__(token)
         self.is_bot = False
 
-    def get_action(self, state):
+    def get_action(self, state)->tuple:
         print(f"Current board state for Player {self.token}:")
         print(state)
         while True:

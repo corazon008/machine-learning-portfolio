@@ -1,5 +1,3 @@
-
-
 class Player:
     def __init__(self, token: int):
         if not isinstance(token, int):
@@ -7,6 +5,6 @@ class Player:
         self.token = token
         self.is_bot = True
 
-    def get_action(self, state):
+    def get_action(self, state)-> tuple:
         # This method should be overridden by subclasses to implement specific strategies.
         raise NotImplementedError("This method should be overridden by subclasses.")

@@ -1,5 +1,5 @@
 from reinforcement_learning.game.Game import Game
-from reinforcement_learning.Players.Player import Player
+from reinforcement_learning.players.Player import Player
 
 class Party:
     def __init__(self, player1, player2):

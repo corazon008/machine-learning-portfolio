@@ -20,7 +20,7 @@ class TfidfVectorizerWrapper:
             ngram_range=ngram_range,
             max_features=max_features,
             min_df=min_df, # ignore terms that appear in fewer than min_df documents
-            max_df=max_df, # ignore terms that appear in more than max_df fraction of documents
+            max_df=max_df, # ignore terms that appear in more than max_df percent of documents
             norm="l2",
         )
         self._is_fitted = False

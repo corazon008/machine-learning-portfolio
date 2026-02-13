@@ -1,7 +1,9 @@
 from typing import List, Tuple
+
 import numpy as np
 from scipy.sparse import csr_matrix
 from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
 
 
 class LogisticRegressionModel:
@@ -10,14 +12,13 @@ class LogisticRegressionModel:
     """
 
     def __init__(
-            self,
-            C: float = 1.0,
-            max_iter: int = 1000,
-            random_state: int = 42,
+        self,
+        C: float = 1.0,
+        max_iter: int = 1000,
+        random_state: int = 42,
     ):
         self.model = LogisticRegression(
-            C=C,
-            #penalty="l2",
+            C=C,  # penalty="l2",
             l1_ratio=0,
             solver="liblinear",
             max_iter=max_iter,
@@ -51,9 +52,9 @@ class LogisticRegressionModel:
         return self.model.score(X, y)
 
     def get_top_features(
-            self,
-            feature_names: List[str],
-            k: int = 20,
+        self,
+        feature_names: List[str],
+        k: int = 20,
     ) -> Tuple[List[Tuple[str, float]], List[Tuple[str, float]]]:
         """
         Return top-k positive and negative features based on learned weights.
@@ -62,7 +63,9 @@ class LogisticRegressionModel:
             raise RuntimeError("Model must be fitted first")
 
         if len(feature_names) != self.model.coef_.shape[1]:
-            raise ValueError("Feature names size does not match model coefficients")
+            raise ValueError(
+                "Feature names size does not match model coefficients"
+            )
 
         coefs = self.model.coef_[0]
 
@@ -73,3 +76,32 @@ class LogisticRegressionModel:
         top_negative = [(feature_names[i], coefs[i]) for i in top_negative_idx]
 
         return top_positive, top_negative
+
+
+class MultinomialNBModel:
+    """
+    Wrapper around sklearn Multinomial Naive Bayes for NLP classification.
+    """
+
+    def __init__(self, alpha: float = 1.0):
+        self.model = MultinomialNB(alpha=alpha)
+        self._is_fitted = False
+
+    def fit(self, X: csr_matrix, y: np.ndarray) -> None:
+        if self._is_fitted:
+            raise RuntimeError("Model is already fitted")
+
+        self.model.fit(X, y)
+        self._is_fitted = True
+
+    def predict(self, X: csr_matrix) -> np.ndarray:
+        if not self._is_fitted:
+            raise RuntimeError("Model must be fitted before prediction")
+
+        return self.model.predict(X)
+
+    def predict_proba(self, X: csr_matrix) -> np.ndarray:
+        if not self._is_fitted:
+            raise RuntimeError("Model must be fitted before prediction")
+
+        return self.model.predict_proba(X)

@@ -12,8 +12,8 @@ from sklearn.metrics import (
 
 
 def compute_classification_metrics(
-    y_true: np.ndarray,
-    y_pred: np.ndarray,
+        y_true: np.ndarray,
+        y_pred: np.ndarray,
 ) -> Dict[str, float]:
     """
     Compute standard classification metrics for binary classification.
@@ -27,8 +27,8 @@ def compute_classification_metrics(
 
 
 def compute_confusion_matrix(
-    y_true: np.ndarray,
-    y_pred: np.ndarray,
+        y_true: np.ndarray,
+        y_pred: np.ndarray,
 ) -> np.ndarray:
     """
     Compute confusion matrix.
@@ -37,9 +37,9 @@ def compute_confusion_matrix(
 
 
 def evaluate_model(
-    model,
-    X,
-    y: np.ndarray,
+        model,
+        X,
+        y: np.ndarray,
 ) -> Dict[str, float]:
     """
     Full evaluation pipeline:
@@ -54,8 +54,8 @@ def evaluate_model(
 
 
 def get_classification_report(
-    y_true: np.ndarray,
-    y_pred: np.ndarray,
+        y_true: np.ndarray,
+        y_pred: np.ndarray,
 ) -> str:
     """
     Return detailed sklearn classification report.

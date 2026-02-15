@@ -51,3 +51,6 @@ class TfidfVectorizerWrapper:
             raise RuntimeError("Vectorizer must be fitted first")
 
         return self.vectorizer.get_feature_names_out().tolist()
+
+    def is_fitted(self) -> bool:
+        return self._is_fitted

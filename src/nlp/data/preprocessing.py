@@ -31,6 +31,12 @@ class TextPreprocessor:
 
         return text.strip()
 
+    def transform(self, texts: List[str]) -> List[str]:
+        """
+        Alias for preprocess_batch to fit sklearn transformer interface.
+        """
+        return self.preprocess_batch(texts)
+
     def preprocess_batch(self, texts: List[str]) -> List[str]:
         """
         Apply preprocessing to a list of documents.

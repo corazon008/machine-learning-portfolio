@@ -12,6 +12,7 @@ class TextPreprocessor:
         # compile regex once for performance
         self._non_alphanum = re.compile(r"[^a-z0-9\s]")
         self._multiple_spaces = re.compile(r"\s+")
+        self._html_tags = re.compile(r"<.*?>")
 
     def preprocess(self, text: str) -> str:
         """
@@ -25,6 +26,9 @@ class TextPreprocessor:
 
         # remove punctuation / special characters
         text = self._non_alphanum.sub(" ", text)
+
+        # remove HTML tags
+        text = self._html_tags.sub(" ", text)
 
         # normalize whitespace
         text = self._multiple_spaces.sub(" ", text)
@@ -42,3 +46,10 @@ class TextPreprocessor:
         Apply preprocessing to a list of documents.
         """
         return [self.preprocess(t) for t in texts]
+
+    def tokenize(self, text: str) -> List[str]:
+        return self.preprocess(text).split()
+
+    def tokenize_batch(self, texts: List[str]) -> List[List[str]]:
+        return [self.tokenize(t) for t in texts]
+

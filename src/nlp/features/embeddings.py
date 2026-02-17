@@ -35,6 +35,9 @@ class GensimWord2Vec:
     def has_word(self, word):
         return word in self.model.wv
 
+    def is_trained(self):
+        return len(self.model.wv) > 0
+
 class SentenceEmbedder:
     def __init__(self, w2v_model):
         self.w2v = w2v_model

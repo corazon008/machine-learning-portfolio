@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "gensim>=4.4.0",
     "jupyterlab>=4.5.2",
     "matplotlib>=3.10.7",
     "mlflow>=3.8.1",
@@ -25,12 +26,11 @@ dev = [
     "pytest>=9.0.2",
 ]
 
+[pytest]
+pythonpath = ["src", "tests"]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = [
-    "computer_vision",
-    "computer_vision.*",
-]

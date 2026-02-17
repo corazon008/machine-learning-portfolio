@@ -24,11 +24,11 @@ class TextPreprocessor:
         # lowercase
         text = text.lower()
 
-        # remove punctuation / special characters
-        text = self._non_alphanum.sub(" ", text)
-
         # remove HTML tags
         text = self._html_tags.sub(" ", text)
+
+        # remove punctuation / special characters
+        text = self._non_alphanum.sub(" ", text)
 
         # normalize whitespace
         text = self._multiple_spaces.sub(" ", text)

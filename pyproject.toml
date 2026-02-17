@@ -26,6 +26,22 @@ dev = [
     "pytest>=9.0.2",
 ]
 
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+torchvision = [
+    { index = "pytorch-cpu" },
+]
+torchaudio = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
 [pytest]
 pythonpath = ["src", "tests"]
 

@@ -28,3 +28,10 @@ def get_transform(img_size: int, mean: list, std: list, augments:bool = False, g
         t.append(transforms.RandomHorizontalFlip())
         t.append(transforms.RandomRotation(10))
     return transforms.Compose(t)
+
+def inverse_transform(img: torch.Tensor, mean: list, std: list) -> torch.Tensor:
+    """Inverse the normalization transform to get back the original image."""
+    inv_mean = [-m / s for m, s in zip(mean, std)]
+    inv_std = [1 / s for s in std]
+    inv_transform = transforms.Normalize(mean=inv_mean, std=inv_std)
+    return inv_transform(img)
